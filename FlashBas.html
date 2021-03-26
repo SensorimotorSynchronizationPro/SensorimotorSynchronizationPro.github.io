@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+</head>
+<!--Basic parameters-->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SMS Flash</title>
+<!-- fetch directives are to control locations from which certain resource types may be loaded.-->
+<meta http-equiv="Content-Security-Policy" content="
+default-src * data: blob: ws: wss: gap://ready file://*;
+style-src * 'unsafe-inline';
+script-src * 'unsafe-inline' 'unsafe-eval';
+connect-src * ws: wss:;" />
+<!--Add CSS and js -->
+
+<script src="https://www.html5rocks.com/en/tutorials/webaudio/intro/js/buffer-loader.js"></script>
+<link rel="stylesheet" href="Style.css" type="text/css" />
+<script type="text/javascript" src="js/FlashBase.js"></script>
+
+<link rel="shortcut icon" href="">
+
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-analytics.js"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-firestore.js"></script>
+
+<script>
+function preloader() {
+  			if (document.images) {
+  				img1 = new Image();
+  				img2 = new Image();
+  				img3 = new Image();
+          img4 = new Image();
+  				img5 = new Image();
+  				img6 = new Image();
+          img7 = new Image();
+          img11 = new Image();
+          img12 = new Image();
+  				img1.src = "img/Base700_1.gif";
+  				img2.src = "img/Base700_2.gif";
+  				img3.src = "img/Base1100_1.gif";
+          img4.src = "img/Base1100_2.gif";
+          img5.src = "img/Base2300_1.gif";
+          img6.src = "img/Base2300_2.gif";
+          img7.src = "img/BasePra_1.gif";
+          img11.src = "img/BasePra_2.gif";
+          img12.src = "img/BasePra_3.gif";
+  			}
+}
+
+window.onload = preloader;
+</script>
+</head>
+
+<body style="background-color:#A6ACAF">
+
+  <!-- Instruction Page -->
+  <div id='introEXP' class="container" style="display:''">
+    <center><h1 id = 'partinfo'> </h1></center>
+      <hr>  <p>
+         Please check the following detailed instruction. <b><em>NOTE:</em></b>
+          There are attention checks, so be sure to read their instructions thoroughly!
+        </p>
+
+      <div id="Sychronization" class="tab" >
+        <center><div class="tablinks" >
+         <h3>Simple Synchronization Task</h3></div></center>
+      </div>
+      <div id="SMS" class="tabcontent" >
+        <img style ='max-width: 70%;' src="img/FlashBase.png" >
+          <video id= 'video' controls>
+            <source src="media/FlashSYC.mp4" type="video/mp4">
+
+        </video>
+        <br>
+      <b><center>Check the sample video →</center></b>
+      </div>
+
+
+      <div class="clearfix"></div>
+
+      <p>
+        This test takes around 8 minutes, and you need to wear earphones. <br>
+          What's the code from the instructions (Reread the instructions if you don't know)：
+          <input id="Code" type="text" value="">
+      </p>
+          <center>
+          <button class="button" onClick="Initiate()">
+          Start experiment
+          </button>
+          </center>
+  </div>
+
+  <!-- Process bar + Rest + Stumuli -->
+  <div id="myProgress" style="display:none;">
+    <div id="myBar"> Progress </div>
+  </div>
+  <div class = 'exp'   id = 'rest' style="display:none;">
+   <div id = 'Wrong' style="display:none;">
+     Please wear your headphone or earphone and choose the word correctly!
+  </div>
+  <div id = 'Correct' style="display:none;">
+    You chose the correct word!
+   </div >
+  <div id = 'restreport'>
+  </div>
+  </div>
+  <canvas id="myCanvas" width="480" height="309" style="display:none"></canvas>
+
+
+
+  <!-- Sychronization block -->
+  <div class = 'exp'   id = 'SYCintro_prac' style="display:none;">
+      <center>
+    <h3><span style="color: #AE1B2D ">Simple synchronization Task</span></h3>
+    <p>
+<br>  Please tap in synchrony with the dots by pressing the <b><span style="color: #AE1B2D ">M bar</span></b> .</p>
+    There are 6 trials in total. Between each trial, you will get a 5-sec short rest.<br> <br>
+    <p> Press Enter to start practice </p>
+      </center>
+  </div>
+  <div class = 'exp'   id = 'SYCintro' style="display:none;">
+      <center>
+    <h3> <span style="color: #AE1B2D ">Simple synchronization Task</span></h3>
+    <br><br>
+    <p> Press enter to Continue </p>
+      </center>
+  </div>
+  <div class = 'exp'   id = 'SYCISI01' style="display:none;">
+      <center>
+        <img src="img/Base700_1.gif" width="72" height="72">
+      </center>
+  </div>
+  <div class = 'exp'   id = 'SYCISI11' style="display:none;">
+      <center>
+        <img src="img/Base1100_1.gif" width="72" height="72">
+      </center>
+  </div>
+  <div class = 'exp'   id = 'SYCISI21' style="display:none;">
+      <center>
+        <img src="img/Base2300_1.gif" width="72" height="72">
+      </center>
+  </div>
+  <div class = 'exp'   id = 'SYCISI02' style="display:none;">
+      <center>
+        <img src="img/Base700_2.gif" width="72" height="72">
+      </center>
+  </div>
+  <div class = 'exp'   id = 'SYCISI12' style="display:none;">
+      <center>
+        <img src="img/Base1100_2.gif" width="72" height="72">
+      </center>
+  </div>
+  <div class = 'exp'   id = 'SYCISI22' style="display:none;">
+      <center>
+        <img src="img/Base2300_2.gif" width="72" height="72">
+      </center>
+  </div>
+
+  <div class = 'exp'   id = 'SYCISIPrac1' style="display:none;">
+      <center>
+        <img src="img/BasePra_1.gif" width="72" height="72">
+      </center>
+  </div>
+  <div class = 'exp'   id = 'SYCISIPrac2' style="display:none;">
+      <center>
+        <img src="img/BasePra_2.gif" width="72" height="72">
+      </center>
+  </div>
+  <div class = 'exp'   id = 'SYCISIPrac3' style="display:none;">
+      <center>
+        <img src="img/BasePra_3.gif" width="72" height="72">
+      </center>
+  </div>
+
+  <div class = 'exp'   id = 'Question' style="display:none;">
+      <center>
+        what word is that?
+        <select id="auditest" name="hand">
+            <option value="0">No word</option>
+            <option value="1">Apple</option>
+            <option value="2">Bottle</option>
+            <option value="3">Cat</option>
+            <option value="4">Dog</option>
+            <option value="5">Lake</option>
+            <option value="6">Offer</option>
+        </select>
+
+        <br> <br> <br> <br> <br> <br> <br>
+        <button class="button" id="begin" onClick="datareportSYC();">
+        Continue
+        </button>
+      </center>
+  </div>
+  <div class = 'exp'   id = 'QuestionPra' style="display:none;">
+      <center>
+        what word is that?
+        <select id="auditestpra" name="hand">
+            <option value="0">No word</option>
+            <option value="1">Apple</option>
+            <option value="2">Bottle</option>
+            <option value="3">Cat</option>
+            <option value="4">Dog</option>
+            <option value="4">Lake</option>
+            <option value="4">Offer</option>
+        </select>
+
+        <br> <br> <br> <br> <br> <br> <br>
+        <button class="button" id="begin" onClick="datareportSYCPra();">
+        Continue
+        </button>
+      </center>
+  </div>
+
+
+
+
+   <!-- Thanks Page + FinalPage + QuitPage1 -->
+   <div class = 'exp'   id = 'ThanksPage' style="display:none;">
+       <center>
+     <p>Your response have been saved :) <br>
+       Your completion code is: 65BBB4E5. <br>
+     <br>If you do not receive compensation in 5 business days please email liuyuelin@pku.edu.cn.</p>
+
+     <p>Hope you have a wonderful life.</p>
+       </center>
+   </div>
+   <div class = 'exp'   id = 'QuitPage1' style="display:none;">
+       <center>
+         <h3>Oh no!</h3>
+         <hr />
+         <p>If you are seeing this page it means you did not pass an attention or understanding task.</p>
+         <p>This task requires your full attention, thus we kindly ask you to exit and return this study.</p>
+         <p>You can also refresh the page to restart this experiment.</p>
+         <p>We're sorry for this inconvenience.</p><center>
+    </div>
+  <div class = 'exp'  id="FinalPage1" style="display:none">
+        <div class="media-body">
+            <p id="finishpart"> </p>
+            <hr />
+
+            <center>
+              <div class="questions" >
+                During this test, you synchronized to dots with a slow or fast tempo.
+                <br>
+                Which tempo is more <b>difficult</b> to synchronize?
+                  <select id="BaseQ" name="gender">
+                      <option value=""></option>
+                      <option value="Fast">Slow</option>
+                      <option value="Slow">Fast</option>
+                      <option value="Equal">Equal</option>
+                  </select>
+              </div>
+              <br><br><br>
+                <button type="button" id="end" value="final" onClick="saveFeedback1();">Continue</button>
+            </center>
+        </div>
+    </div>
+  <div class = 'exp'  id="FinalPage2" style="display:none">
+        <div class="media-body">
+            <h3>Thanks for your participation for the whole experiment!</h3>
+            <hr />
+                    Let us know if you had any issues/comments with this experiment!
+                    <br> <input id="feedback2" type="text" name="feedback" value="">
+           </p>
+
+
+            <center>
+
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button" id="end" value="final" onClick="saveFeedback2();">
+                    Submit
+                </button>
+            </center>
+        </div>
+    </div>
+
+</body>
+<script>
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+var circle = ({
+    x: canvas.width/2,
+    y: canvas.height/2,
+    radius: 36,
+    color: "black",
+    visibleDuration: 100,
+    visibleCountdown: 0,
+});
+
+
+//get subjID
+var subjectid =window.location.href.split('?')[1];
+document.getElementById('partinfo').innerHTML ="Task "+ subjectid.charAt(subjectid.length-1);
+document.getElementById('finishpart').innerHTML ='You have finished this test.' ;
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+var firebaseConfig = {
+  apiKey: "AIzaSyA9b7mI94Ah5SZbUNrrmTMDLp9dtvD1XB8",
+  authDomain: "sensorimotorsychronization-vf.firebaseapp.com",
+  projectId: "sensorimotorsychronization-vf",
+  storageBucket: "sensorimotorsychronization-vf.appspot.com",
+  messagingSenderId: "157058862387",
+  appId: "1:157058862387:web:0179c8ef17990d6a650246",
+  measurementId: "G-G7C9HRPL9Y"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
+// create db for database func
+const db=firebase.firestore();
+db.settings({timestampsInSnapshots: true});
+</script>
+</html>
