@@ -218,7 +218,7 @@ function saveFeedback1(){
       feedback:document.getElementById("BaseQ").value,
     })
     subjtimes=+subjectid.charAt(subjectid.length-1)+1;
-    window.location.href = link[sequence[subjectid.charCodeAt(2)%2][subjtimes-1]] + '?'+subjectid+ subjtimes;
+    window.location.href = link[sequence[subjectid.charCodeAt(2)%TotalParts][subjtimes-1]] + '?'+subjectid+ subjtimes;
     }else if (subjectid.charAt(subjectid.length-1)==TotalParts){
       db.collection('New-Flash-Base').doc(subjectid).update({
         feedback:document.getElementById("BaseQ").value,
