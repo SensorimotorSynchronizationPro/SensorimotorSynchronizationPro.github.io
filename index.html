@@ -25,6 +25,12 @@
         <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-analytics.js"></script>
         <!-- The core Firebase JS SDK is always required and must be listed first -->
         <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-firestore.js"></script>
+        <script>
+        function playtest() {
+            var audio = document.getElementById("audio");
+              audio.play();
+            }
+         </script>
 
 </head>
 
@@ -53,11 +59,11 @@
   <div id='intro' class="container" style="display:none" >
         <h1 class="xlarge-font" ><b>Welcome :) </b></h1>
         <h4>  We would like to invite you to take part in the following study about
-        sensorimotor synchronization. Before the experiment, we need your consent to proceed.  </h4>
+        Sensorimotor Synchronization. Before the experiment, we need your consent to proceed.  </h4>
 
           <p class="blocktext">
-            <b> This study takes up to around 35 - 40 min, including 4 different tasks</b>.
-            You will be compensated <b>£ 4 </b> after completion of the whole study. Please understand that we
+            <b> This study takes up to around 25 min</b>.
+            You will be compensated <b>£ 2.5 </b> after completion of the whole study. Please understand that we
             <em> <b>reserve the right to not compensate entries</em> </b>that fail
             to follow instructions.<br>
 
@@ -142,7 +148,7 @@
            <b>4.</b> Mother tongue:
            <input id="language" type="text" name="language" value="">
           </div>
-          <div class="questions" ><br>
+          <div class="questions" >
             <b>5.</b> Have you ever received professional music training besides music education at school? <br>
             If yes, please indicate your approximate training time(in years); if no, please write 0.
             <input id="musicexp" type="text" name="music" value="">
@@ -158,26 +164,23 @@
             Your valid response times, reaction time,
             and reaction stability is very important to us and will have a direct impact on your compensation.
           <br><b>2. </b>Please turn off or minimize other programs running on your computer.
-          <br><b>3. </b>Please turn your phone to silent mode and minimize ambient noise.
+          <br><b>3. </b>Turn your phone to silent mode and minimize ambient noise.
           <br><b>4. </b>Please do not exit fullscreen mode.</b>
-       <hr>
-            <br><b>5.</b> We will play a background sound during the task, e.g.,          <button id="playAudio1">Play</button>
-                        <audio id="audio1" src="sound/WhiteNoise.mp3"></audio>
-              . <br><b>This is very important for us!</b> Because this experiment is about moving with <em>visual </em>stimuli,
-              we want to cover the sound of your keystroke (a special kind of <em>auditory </em>feedback).
-            <br>  Please use a wired headset/earphone and adjust your system volume to a comfortable level. And make sure you can't hear the keystroke sound.
-            <br>Then listen to this sound and tell us what kind of animal is that?
-
-            <button id="playAudio2">Play</button>
-            <audio id="audio2" src="sound/Testsound.ogg"></audio>
-
-            <select id="auditest" name="hand">
-                <option value=""></option>
-                <option value="1">Cat</option>
-                <option value="2">Birds</option>
-                <option value="3">Sheep</option>
-                <option value="4">Dog</option>
-            </select>
+            <br><b>5.</b> Make sure your system volume is at a comfortable level.
+              Please use a wired headset/earphone or computer's built-in stereo.
+              <b> Please do NOT use Bluetooth headset/earphone!</b> Bluetooth affects the duration of experimental stimuli.<br>
+            Please listen to this sound and tell us what kind of animal is that?            <input type="button" value="PLAY" onclick="playtest()">
+                        <audio id="audio" src="sound/Testsound.ogg"></audio><br>
+                        <select id="auditest" name="hand">
+                            <option value=""></option>
+                            <option value="1">Cat</option>
+                            <option value="2">Birds</option>
+                            <option value="3">Sheep</option>
+                            <option value="3">Dog</option>
+                        </select>
+            <br>It might be a little bit boring, but this is the shortest way to get an accurate measure of Duration Perception.
+          In this setting, <b>each of your reports matters a lot</b>.
+          <br>
 
     </p>
     <hr>
@@ -206,14 +209,14 @@
 
  // Your web app's Firebase configuration
  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
- var firebaseConfig = {
-   apiKey: "AIzaSyA9b7mI94Ah5SZbUNrrmTMDLp9dtvD1XB8",
-   authDomain: "sensorimotorsychronization-vf.firebaseapp.com",
-   projectId: "sensorimotorsychronization-vf",
-   storageBucket: "sensorimotorsychronization-vf.appspot.com",
-   messagingSenderId: "157058862387",
-   appId: "1:157058862387:web:0179c8ef17990d6a650246",
-   measurementId: "G-G7C9HRPL9Y"
+ const firebaseConfig = {
+   apiKey: "AIzaSyAOt2wFN_BQtUIPzepiJRegMu9HlitHbhQ",
+   authDomain: "sms-timeperception.firebaseapp.com",
+   projectId: "sms-timeperception",
+   storageBucket: "sms-timeperception.appspot.com",
+   messagingSenderId: "865405917294",
+   appId: "1:865405917294:web:c3f888c3501894d0966e7f",
+   measurementId: "G-0DS7WRR065"
  };
  // Initialize Firebase
  firebase.initializeApp(firebaseConfig);
@@ -222,33 +225,6 @@
 const db=firebase.firestore();
 db.settings({timestampsInSnapshots: true});
 
-
-    document.getElementById("playAudio1").addEventListener("click", function(){
-    var audio = document.getElementById('audio1');
-     if(this.className == 'is-playing'){
-       this.className = "";
-       this.innerHTML = "Play"
-       audio.pause();
-       }else{
-        this.className = "is-playing";
-        this.innerHTML = "Pause";
-        audio.play();
-     }
-    });
-
-
-      document.getElementById("playAudio2").addEventListener("click", function(){
-      var audio = document.getElementById('audio2');
-       if(this.className == 'is-playing'){
-         this.className = "";
-         this.innerHTML = "Play"
-         audio.pause();
-       }else{
-         this.className = "is-playing";
-         this.innerHTML = "Pause";
-         audio.play();
-       }
-    });
  </script>
 
 </body>

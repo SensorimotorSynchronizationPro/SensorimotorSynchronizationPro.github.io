@@ -1,4 +1,5 @@
-// ************* ************************ <Study parameters> *********************************************
+
+// ************************************* <Study parameters> *********************************************
 
 var subject = {
   id: null,
@@ -11,25 +12,8 @@ var subject = {
   fps:null,
 }
 
-// test parts
-var link =[
- 'FlashSpa.html','FlashBas.html','FlashRea.html','FlashTim.html',
-]
-
-// avoiding spa and tim link together
-var sequence = [
-  [0,1,2,3],
-  [0,2,1,3],
-  [3,1,2,0],
-  [3,2,1,0],
-  [0,2,3,1],
-  [3,2,0,1],
-  [1,0,2,3],
-  [1,3,2,0],
-];
 
 
-var TotalParts=4;
 
 
 // ************* ************************ <Initiate + basic func> *********************************************
@@ -90,7 +74,7 @@ function basicinfo(){
       console.log("Document successfully written!");
       localStorage.setItem("subjectid",subject.id);
       subject.times=1;
-      window.location.href = link[sequence[subject.id.charCodeAt(2)%TotalParts][subject.times-1]] + '?'+subject.id+ subject.times;
+      window.location.href = 'Synchronization.html' + '?'+subject.id+ subject.times;
     })
     .catch(function(error) {
       console.error("Error writing document: ", error);
